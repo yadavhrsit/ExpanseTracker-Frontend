@@ -5,47 +5,29 @@ import Dashboard from './pages/Dashboard';
 import Budgets from './pages/Budgets';
 import Expenses from './pages/Expenses';
 import {
-  createBrowserRouter,
-  createRoutesFromElements,
+  BrowserRouter as Router,
+  Routes,
   Route,
-  RouterProvider,
-  Link,
-  Outlet,
 } from "react-router-dom";
-
-const router = createBrowserRouter([
-  createRoutesFromElements(
-    <Route path='/' element={<Root />}>
-      <Route index element={<Dashboard />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/register' element={<Signup />} />
-      <Route path='/budgets' element={<Budgets />} />
-      <Route path='/expenses' element={<Expenses />} />
-    </Route>
-  )
-]);
+import { ApiProvider } from "@reduxjs/toolkit/query/react";
+import { authApi } from './apiSlice';
 
 function App() {
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
+    <ApiProvider api={authApi}>
+      <div className="App">
+        <Router>
+          <Routes>
+            <Route path='/' element={<Dashboard />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Signup />} />
+            <Route path='/budgets' element={<Budgets />} />
+            <Route path='/expenses' element={<Expenses />} />
+          </Routes>
+        </Router>
+      </div>
+    </ApiProvider>
   );
-}
-
-const Root = () => {
-  return (
-    <>
-      <div>
-        <Link to='/'>Dashboard</Link>
-        <Link to='/budgets'>Budgets</Link>
-        <Link to='/expenses'>Expenses</Link>
-      </div>
-      <div>
-        <Outlet />
-      </div>
-    </>
-  )
 }
 
 export default App;

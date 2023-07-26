@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-const BASE_URL = 'http://localhost:8000';
-async function Dashboard() {
-    let budgets = null;
-    try {
-        budgets = await axios.get(`${BASE_URL}/budgets/viewall`);
+import React, { useEffect } from 'react';
 
-    } catch (error) {
-        console.error('Error getting dashboard data:', error);
+import { useNavigate } from "react-router-dom";
+import { useGetUserQuery } from '../apiSlice';
+
+
+
+
+function Dashboard() {
+    let navigate = useNavigate();
+    const { data: profile, isLoading, isSuccess, isError } = useGetUserQuery();
+    if (isSuccess) {
+        return (
+            <div>Dashboard
+                <pre>
+                    User is : {profile.userName}
+                </pre>
+            </div>
+        )
     }
-    return (
-        <div>Dashboard
-            <p>
-                {budgets ? <p>budegts.budegts</p> : ""}
-            </p>
-        </div>
-    )
+    if (isError) {
+        navigate("/login");
+    }
+
+
 }
 
 export default Dashboard

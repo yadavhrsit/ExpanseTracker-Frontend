@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-
-const BASE_URL = 'http://localhost:8000';
+import { useNavigate } from 'react-router-dom';
+import { useLoginMutation, useGetUserQuery } from '../apiSlice';
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Invalid email format').max(50, 'Email must be at most 50 characters'),
@@ -11,7 +10,45 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login = () => {
-    const [response, setResponse] = useState(null);
+    let navigate = useNavigate();
+
+    const { isLoading, isSuccess } = useGetUserQuery();
+
+    if (isSuccess) {
+        navigate("/");
+    }
+    if (isLoading) {
+        console.log("... is Loading")
+    }
+
+
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
+    const [login] = useLoginMutation();
+
+    const handleLogin = async (values) => {
+        setIsLoggingIn(true);
+        try {
+            await login(values).unwrap()
+                .then((payload) => {
+                    setIsLoggingIn(false);
+                    console.log(payload.message)
+                    setTimeout(() => {
+                        navigate('/');
+                        console.log('redirecting...')
+                    }, 500);
+
+                })
+                .catch((error) => {
+                    setIsLoggingIn(false);
+                    console.error(error.data.isError)
+                });
+
+        } catch (error) {
+            console.error('Login error:', error);
+        } finally {
+            setIsLoggingIn(false);
+        }
+    };
 
     return (
         <div>
@@ -19,17 +56,7 @@ const Login = () => {
             <Formik
                 initialValues={{ email: '', password: '' }}
                 validationSchema={LoginSchema}
-                onSubmit={async (values) => {
-                    try {
-                        const response = await axios.post(`${BASE_URL}/auth/login`, {
-                            email: values.email,
-                            password: values.password,
-                        });
-                        setResponse(response.data);
-                    } catch (error) {
-                        setResponse({ message: 'Login failed. Please check your email and password.' });
-                    }
-                }}
+                onSubmit={handleLogin}
             >
                 {() => (
                     <Form>
@@ -44,8 +71,9 @@ const Login = () => {
                             <ErrorMessage name="password" component="div" className="error" />
                         </div>
 
-                        <button type="submit">Submit</button>
-                        {response ? <div>{response.message}</div> : ""}
+                        <button type="submit" disabled={isLoggingIn}>
+                            {isLoggingIn ? 'Logging In...' : 'Submit'}
+                        </button>
                     </Form>
                 )}
             </Formik>
