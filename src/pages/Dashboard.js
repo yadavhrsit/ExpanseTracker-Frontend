@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 
 import { useNavigate } from "react-router-dom";
 import { useGetUserQuery } from '../apiSlice';
+import FluidCard from '../components/FluidCard';
+import SectionContainer from '../components/SectionContainer';
 
 
 
@@ -13,8 +15,10 @@ function Dashboard() {
         return (
             <div>Dashboard
                 <pre>
-                    User is : {profile.userName}
+                    Hello : {profile.userName}
                 </pre>
+                <FluidCard />
+                <SectionContainer />
             </div>
         )
     }
