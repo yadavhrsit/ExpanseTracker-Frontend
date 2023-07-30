@@ -1,5 +1,6 @@
 .profile-container{
-    height: 60px;
+    max-height: 60px;
+    width: 100%;
     display: flex;
 }
 .profile-container img{

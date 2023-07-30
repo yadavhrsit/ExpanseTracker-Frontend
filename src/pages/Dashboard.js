@@ -16,10 +16,12 @@ function Dashboard() {
     console.log(profile)
     if (isSuccess) {
         return (
-            <div>
+            <div className='dashboard-page'>
                 <ProfileContainer name={profile.userName} />
-                <BudgetsContainer />
-                <ExpensesContainer />
+                <div className='grid'>
+                    <BudgetsContainer />
+                    <ExpensesContainer />
+                </div>
             </div>
         )
     }

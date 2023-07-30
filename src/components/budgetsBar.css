@@ -1,7 +1,7 @@
 
 .progress-bar {
     height: 4px;
-    background-color: rgb(0,146,255);
+    background: rgb(0,91,255);
     border-radius: 10px;
     overflow: hidden;
   }

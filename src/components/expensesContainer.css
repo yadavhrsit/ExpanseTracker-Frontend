@@ -1,13 +1,14 @@
 .expenses-container{
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    max-width: 30%;
-    padding: 20px 0px 0px 0px;
-    margin-top: 20px;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 30%;
+  padding: 20px 0px 10px 0px;
+  margin-top: 20px;
 }
 @media (max-width: 768px) {
 	.expenses-container {
-        max-width: 100%;
-	}
+    width: 100%; 
+	  }
   }
