@@ -1,0 +1,39 @@
+.expensebar-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgb(24, 116, 190);
+    color:white;
+    padding: 10px 30px;
+    border-radius: 15px;
+}
+.expense-img{
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+}
+.expense-data-container-left{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.expense-data-container-right{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.expense-title{
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+.expense-category,.expense-date,.expense-amount{
+    font-size: 0.625rem;
+    font-weight: 400;
+    width: fit-content;
+    color: rgb(216, 215, 215);
+}
+.expense-amount{
+    font-weight: bold;
+}

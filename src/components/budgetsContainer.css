@@ -1,0 +1,14 @@
+.budgets-container{
+    max-width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px 0px 0px 0px;
+    margin-top: 20px;
+}
+@media (max-width: 768px) {
+	.budgets-container {
+        max-width: 100%;
+	}
+  }
+ 

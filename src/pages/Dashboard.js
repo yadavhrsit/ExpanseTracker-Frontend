@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { } from 'react';
 
 import { useNavigate } from "react-router-dom";
 import { useGetUserQuery } from '../apiSlice';
-import FluidCard from '../components/FluidCard';
-import SectionContainer from '../components/SectionContainer';
+import './dashboard.css';
+import ProfileContainer from '../components/ProfileContainer';
+import BudgetsContainer from '../components/BudgetsContainer';
+import ExpensesContainer from '../components/ExpensesContainer';
 
 
 
@@ -11,14 +13,13 @@ import SectionContainer from '../components/SectionContainer';
 function Dashboard() {
     let navigate = useNavigate();
     const { data: profile, isLoading, isSuccess, isError } = useGetUserQuery();
+    console.log(profile)
     if (isSuccess) {
         return (
-            <div>Dashboard
-                <pre>
-                    Hello : {profile.userName}
-                </pre>
-                <FluidCard />
-                <SectionContainer />
+            <div>
+                <ProfileContainer name={profile.userName} />
+                <BudgetsContainer />
+                <ExpensesContainer />
             </div>
         )
     }
