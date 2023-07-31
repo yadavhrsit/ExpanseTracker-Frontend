@@ -1,0 +1,48 @@
+.profile-container{
+    width: 100%;
+    display: flex;
+    order: 0;
+    position:fixed;
+    background-color: #222831;
+    z-index: 99;
+    top: 0;
+    padding: 30px 10px 10px;
+    }
+.profile-container img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px dashed #EEEEEE;
+}
+.profile-text-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 2px 0px 8px 10px;
+    align-items: center;
+}
+.profile-welcome-text{
+    font-size: 0.6875rem;
+    font-weight: 400;
+    color: #EEEEEE;
+}
+.profile-name-text{
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+.profile-container button{
+    height: fit-content;
+    position: absolute;
+    right: 100px;
+    display: none;
+}
+@media (max-width: 768px) {
+    .profile-container{
+        padding: 20px 10px 10px;
+    }
+	.profile-container button{
+        display: block;
+        right: 20px;
+        padding: 14px 15px;
+    }
+  }

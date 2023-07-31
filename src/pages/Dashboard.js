@@ -3,16 +3,16 @@ import React, { } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useGetUserQuery } from '../apiSlice';
 import './dashboard.css';
-import ProfileContainer from '../components/ProfileContainer';
-import BudgetsContainer from '../components/BudgetsContainer';
-import ExpensesContainer from '../components/ExpensesContainer';
-
-
+import '../animations.css';
+import ProfileContainer from '../components/Profile/ProfileContainer';
+import BudgetsContainer from '../components/Budgets/BudgetsContainer';
+import ExpensesContainer from '../components/Expenses/ExpensesContainer';
+import CardContainer from '../components/Card/CardContainer';
 
 
 function Dashboard() {
     let navigate = useNavigate();
-    const { data: profile, isLoading, isSuccess, isError } = useGetUserQuery();
+    const { data: profile, isSuccess, isError } = useGetUserQuery();
     console.log(profile)
     if (isSuccess) {
         return (
@@ -22,6 +22,7 @@ function Dashboard() {
                     <BudgetsContainer />
                     <ExpensesContainer />
                 </div>
+                <CardContainer />
             </div>
         )
     }

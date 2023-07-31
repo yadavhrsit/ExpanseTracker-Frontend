@@ -1,6 +1,6 @@
 import './App.css';
-import Signup from './pages/Signup';
-import Login from './pages/Login';
+import Signup from './pages/Auth/Signup';
+import Login from './pages/Auth/Login';
 import Dashboard from './pages/Dashboard';
 import Budgets from './pages/Budgets';
 import Expenses from './pages/Expenses';

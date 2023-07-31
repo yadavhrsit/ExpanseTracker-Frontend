@@ -15,7 +15,7 @@ function BudgetsContainer() {
             <BudgetBar total={20000} score={900} name={"Rent"} key={5} />
             <BudgetBar total={5000} score={5000} name={"Bills"} key={6} />
             <BudgetBar total={3000} score={900} name={"Misc"} key={7} />
-            <button className='classic-btn'>View All</button>
+            <button className='classic-btn view-button'>View All</button>
         </div>
     )
 }

@@ -12,35 +12,48 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video,textarea,input {
 	margin: 0;
 	padding: 0;
 	border: 0;
 	vertical-align: baseline;
+	box-sizing: border-box;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
+textarea:focus-visible, input:focus-visible{
+    outline: none;
+}
+a{
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
 html{
 	font-size: 28px;
 }
 body {
 	line-height: 1;
-	color: azure;
-	padding: 20px;
+	color: #EEEEEE;
+	padding: 40px 80px;
 	margin: 0;
 	font-family: 'Raleway', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: rgb(31, 31, 31);
+	background-color: #222831;
 
 }
 
 @media (max-width: 768px) {
 	html {
 	  font-size: 16px;
+	}
+	body{
+		padding: 20px 8px;
 	}
   }
 
@@ -58,10 +71,4 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}
-.section-heading{
-	font-size: 1.875;
-	font-weight: 600;
-	text-transform: uppercase;
-	margin-bottom: 6px;
 }

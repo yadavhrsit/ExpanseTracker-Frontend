@@ -9,6 +9,7 @@ function ProfileContainer(props) {
                 <p className='profile-welcome-text'>Welcome!</p>
                 <p className='profile-name-text'>{S(props.name).titleCase().s}</p>
             </div>
+            <button className='classic-btn'>+ Add Expense</button>
         </div>
     )
 }

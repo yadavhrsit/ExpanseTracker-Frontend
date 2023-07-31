@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { useLoginMutation, useGetUserQuery } from '../apiSlice';
+import { useLoginMutation, useGetUserQuery } from '../../apiSlice';
+import './auth.css'
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Invalid email format').max(50, 'Email must be at most 50 characters'),
@@ -44,6 +45,7 @@ const Login = () => {
                 });
 
         } catch (error) {
+            alert('Login error:', error);
             console.error('Login error:', error);
         } finally {
             setIsLoggingIn(false);
@@ -51,8 +53,7 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <h2>Login</h2>
+        <>
             <Formik
                 initialValues={{ email: '', password: '' }}
                 validationSchema={LoginSchema}
@@ -60,24 +61,26 @@ const Login = () => {
             >
                 {() => (
                     <Form>
-                        <div>
+                        <p className='section-heading'>Login</p>
+                        <div className='field-container'>
                             <label htmlFor="email">Email</label>
                             <Field type="email" id="email" name="email" />
                             <ErrorMessage name="email" component="div" className="error" />
                         </div>
-                        <div>
+                        <div className='field-container'>
                             <label htmlFor="password">Password</label>
                             <Field type="password" id="password" name="password" />
                             <ErrorMessage name="password" component="div" className="error" />
                         </div>
 
-                        <button type="submit" disabled={isLoggingIn}>
+                        <button className='classic-btn auth-btn' type="submit" disabled={isLoggingIn}>
                             {isLoggingIn ? 'Logging In...' : 'Submit'}
                         </button>
+                        <a href="/register">Not a Registered user ? <strong>Signup</strong></a>
                     </Form>
                 )}
             </Formik>
-        </div>
+        </>
     );
 };
 

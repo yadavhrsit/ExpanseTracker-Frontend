@@ -6,14 +6,14 @@
     overflow: hidden;
   }
 .budget-caption{
-  font-size: 0.875rem;
+  font-size: 0.6rem;
   font-weight: 400;
   display: inline;
   width: fit-content;
   line-height: 1.6;
 }
 .budget-stats{
-  font-size:  0.625rem;
+  font-size:  0.4rem;
   font-weight: 400;
   float: right;
   display: inline;

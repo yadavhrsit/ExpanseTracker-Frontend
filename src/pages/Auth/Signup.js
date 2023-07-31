@@ -33,7 +33,7 @@ const Signup = () => {
 
     return (
         <div>
-            <h2>Sign Up</h2>
+
             <Formik
                 initialValues={{ name: '', email: '', password: '' }}
                 validationSchema={SignupSchema}
@@ -52,7 +52,8 @@ const Signup = () => {
             >
                 {({ setFieldValue }) => (
                     <Form>
-                        <div>
+                        <p className='section-heading'>Signup</p>
+                        <div className='field-container'>
                             <label htmlFor="name">Name</label>
                             <Field
                                 type="text"
@@ -66,18 +67,18 @@ const Signup = () => {
                             />
                             <ErrorMessage name="name" component="div" className="error" />
                         </div>
-                        <div>
+                        <div className='field-container'>
                             <label htmlFor="email">Email</label>
                             <Field type="email" id="email" name="email" />
                             <ErrorMessage name="email" component="div" className="error" />
                         </div>
-                        <div>
+                        <div className='field-container'>
                             <label htmlFor="password">Password</label>
                             <Field type="password" id="password" name="password" />
                             <ErrorMessage name="password" component="div" className="error" />
                         </div>
-
-                        <button type="submit">Submit</button>
+                        <button className='classic-btn auth-btn' type="submit">Submit</button>
+                        <a href="/login">Already a Registered user ? <strong>Login</strong></a>
                         {response ? <div>{response.message}</div> : ""}
                     </Form>
                 )}
