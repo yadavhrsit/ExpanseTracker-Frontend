@@ -1,6 +1,6 @@
 .card{
     display: flex;
-    width: min-content;
+    width: 6rem;
     flex-direction: column;
     gap: 8px;
     align-items: center;
@@ -19,12 +19,19 @@
 
 .card-number{
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     width: max-content;
+    
 }
 .card-title{
     font-size: 0.5rem;
-    width: max-content;
+    width: fit-content;
+    font-weight: 200;
+}
+.card-subtitle{
+    font-weight: 400;
+    font-size: 0.6rem;
+    width: fit-content;
 }
 
 @media (max-width: 768px) {
