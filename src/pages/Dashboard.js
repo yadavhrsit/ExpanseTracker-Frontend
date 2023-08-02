@@ -12,9 +12,10 @@ import CardContainer from '../components/Card/CardContainer';
 
 function Dashboard() {
     let navigate = useNavigate();
-    const { data: profile, isSuccess, isError } = useGetUserQuery();
-    console.log(profile)
-    if (isSuccess) {
+    const { data: profile, isSuccess: isProfile, isError: isProfileError } = useGetUserQuery();
+
+
+    if (isProfile) {
         return (
             <div className='dashboard-page'>
                 <ProfileContainer name={profile.userName} />
@@ -26,7 +27,7 @@ function Dashboard() {
             </div>
         )
     }
-    if (isError) {
+    if (isProfileError) {
         navigate("/login");
     }
 

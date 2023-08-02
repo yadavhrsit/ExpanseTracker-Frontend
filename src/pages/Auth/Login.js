@@ -3,7 +3,6 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation, useGetUserQuery } from '../../apiSlice';
-import './auth.css'
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Invalid email format').max(50, 'Email must be at most 50 characters'),

@@ -24,8 +24,8 @@
 }
 .view-button{
     position: absolute;
-    bottom: 2%;
-    left: 2%;
+    bottom: 5%;
+    left: 2.5%;
 }
 .section-header-container{
     display: flex;
@@ -52,7 +52,6 @@
         padding: 6px 12px;
     }
     .view-button{
-        bottom: 3%;
-        left: 4%;
+        left: 5%;
     }
   }
