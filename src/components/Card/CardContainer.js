@@ -28,12 +28,22 @@ function CardContainer() {
 
     const [todayObjects, setTodayObjects] = useState([]);
     const [lastObject, setlastObject] = useState([]);
+    const [exceededBudgets, setExceededBudgets] = useState([]);
+
 
     useEffect(() => {
         if (isExpenses && expenses) {
-            const filteredObjects = getObjectsWithTodayDate(expenses);
-            setlastObject(filteredObjects[filteredObjects.length - 1]);
-            setTodayObjects(filteredObjects);
+            if (expenses.length > 0) {
+                const filteredObjects = getObjectsWithTodayDate(expenses);
+                if (filteredObjects) {
+                    setlastObject(filteredObjects[filteredObjects.length - 1]);
+                    setTodayObjects(filteredObjects);
+                }
+            }
+            else {
+                setlastObject({});
+                setTodayObjects([]);
+            }
         }
     }, [isExpenses, expenses]);
 
@@ -45,12 +55,21 @@ function CardContainer() {
         return <div>Error: Data could not be fetched</div>;
     }
 
-    console.log(lastObject)
+    if (!budgets.error) {
+
+        const foundObjects = budgets.filter((obj) => obj.amount === obj.totalExpenses);
+
+        if (foundObjects.length > 0) {
+            foundObjects.forEach((obj) => setExceededBudgets(current => [...current, obj.name]));
+        }
+    }
 
     return (
         <div className='card-container flip-in-diag-1-tr'>
             <Card number={todayObjects.length} title={"Expenses made today"} />
-            <Card number={`${lastObject.amount} Rs`} description={lastObject.description} title={"Last Expense"} />
+            <Card number={lastObject.amount ? `${lastObject.amount}Rs` : `${0}rs`} description={lastObject ? lastObject.description : ""} title={"Last Expense"} />
+            <Card number={exceededBudgets.length} title={"Budgets are Full"} />
+            <Card number={!budgets.error ? budgets.length : 0} title={"Active Budgets"} />
         </div>
     )
 }

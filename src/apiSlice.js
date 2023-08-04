@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const authApi = createApi({
     reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/", credentials: "include" }),
+    tagTypes: ['Budgets', 'Expenses'],
     endpoints: (builder) => ({
         register: builder.mutation({
             query: (newUserData) => ({
@@ -30,22 +31,32 @@ export const authApi = createApi({
             query: () => "utils/getuser",
         }),
         budgets: builder.query({
-            query: () => "budget/viewall"
+            query: () => "budget/viewall",
+            providesTags: ['Budgets'],
         }),
         addBudget: builder.mutation({
-            query: () => ({
+            query: (budgetData) => ({
                 url: "budget/add",
-                method: "POST"
+                method: "POST",
+                body: budgetData,
+                validateStatus: (response) =>
+                    response.status === 201,
             }),
+            invalidatesTags: ['Budgets'],
         }),
         expenses: builder.query({
-            query: () => "expense/viewall"
+            query: () => "expense/viewall",
+            providesTags: ['Expenses'],
         }),
         addExpense: builder.mutation({
-            query: () => ({
+            query: (expenseData) => ({
                 url: "expense/add",
-                method: "POST"
+                method: "POST",
+                body: expenseData,
+                alidateStatus: (response) =>
+                    response.status === 201,
             }),
+            invalidatesTags: ['Expenses', 'Budgets'],
         }),
     }),
 });
