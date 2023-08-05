@@ -1,40 +1,37 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useAddBudgetMutation } from '../../apiSlice';
+import { useUpdateBudgetMutation } from '../../apiSlice';
 import { Success } from '../Success';
 import Loading from '../Loading';
-import titleCase from '../../TitleCase';
 
-const AddBudgetSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required').max(30, 'Name must be at most 30 characters'),
+const UpdateBudgetSchema = Yup.object().shape({
+    id: Yup.string().required('Id is required'),
     amount: Yup.number().required('Amount is required').max(999999999, 'Amount must be at most 999999999'),
 });
 
-function AddBudget({ handleAddBudget }) {
+function UpdateBudget({ handleUpdateBudget, id, name }) {
     const initialValues = {
-        name: '',
+        name: name,
+        id: id,
         amount: '',
     };
-
-    const [addBudget, { isLoading, isSuccess }] = useAddBudgetMutation();
+    const [updateBudget, { isLoading, isSuccess }] = useUpdateBudgetMutation();
 
     const handleFormSubmit = async (values) => {
         try {
-            values.name = await titleCase(values.name);
-            await addBudget(values).unwrap().then((payload) => {
+            delete values.name;
+            await updateBudget(values).unwrap().then((payload) => {
+                console.log(payload);
                 setTimeout(() => {
-                    handleAddBudget(false);
+                    handleUpdateBudget(false);
                 }, 1100);
             }).catch((err) => {
-                if (err.data.err.code === 11000) {
-                    alert("Duplicate Budget")
-                }
-                else
-                    alert("Error Occured Try again later");
+                alert("Error Occured Try again later");
+                console.log(err);
             })
         } catch {
-            alert('Failed to add budget:');
+            alert('Failed to Update budget:');
         }
     };
 
@@ -43,7 +40,7 @@ function AddBudget({ handleAddBudget }) {
         <>
             <Formik
                 initialValues={initialValues}
-                validationSchema={AddBudgetSchema}
+                validationSchema={UpdateBudgetSchema}
                 onSubmit={handleFormSubmit}
             >
                 {() => (
@@ -53,8 +50,8 @@ function AddBudget({ handleAddBudget }) {
                             isLoading ? <Loading /> :
                                 <>
                                     <div className='field-container'>
-                                        <label htmlFor="name">Name</label>
-                                        <Field type="text" id="name" name="name" />
+                                        <label htmlFor="name">Updating Budget for</label>
+                                        <Field type="text" id="name" name="budget" value={name} disabled={true} />
                                         <ErrorMessage name="name" component="div" className="error" />
                                     </div>
                                     <div className='field-container'>
@@ -63,9 +60,10 @@ function AddBudget({ handleAddBudget }) {
                                         <ErrorMessage name="amount" component="div" className="error" />
                                     </div>
                                     <button className='classic-btn auth-btn' type="submit" disabled={isLoading}>
-                                        {isLoading ? 'Adding...' : 'Add Budget'}
+                                        {isLoading ? 'Updating...' : 'Update Budget Amount'}
                                     </button>
-                                </>}
+                                </>
+                        }
                     </Form>
                 )}
             </Formik>
@@ -73,4 +71,4 @@ function AddBudget({ handleAddBudget }) {
     );
 }
 
-export default AddBudget;
+export default UpdateBudget;

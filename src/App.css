@@ -165,6 +165,38 @@ a{
 .close-btn-exp{
     top: calc(50% - 228px);
 }
+.option-menu{
+  display: flex;
+  flex-direction: column;
+  color: #00ADB5;
+  background-color: #00000000;
+  font-size:inherit;
+  cursor: pointer;
+}
+.bgopt{
+  color: #0c0c0c;
+}
+.options-window{
+  display: flex;
+  gap: 6px;
+  height: 100%;
+}
+.options-window button{
+  padding: 0px 8px;
+  font-size: 0.5rem;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+.options-window button:first-child {
+  background-color: rgb(63, 168, 142);
+}
+
+/* Selector for the last button under class .options-window */
+.options-window button:last-child {
+  background-color: rgb(245, 89, 89);
+}
 
 
 @media (max-width: 768px) {

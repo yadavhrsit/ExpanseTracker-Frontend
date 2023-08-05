@@ -30,6 +30,13 @@ export const authApi = createApi({
         getUser: builder.query({
             query: () => "utils/getuser",
         }),
+
+
+
+
+
+        // BUDGETS
+
         budgets: builder.query({
             query: () => "budget/viewall",
             providesTags: ['Budgets'],
@@ -44,6 +51,33 @@ export const authApi = createApi({
             }),
             invalidatesTags: ['Budgets'],
         }),
+        updateBudget: builder.mutation({
+            query: (updateBudgetData) => ({
+                url: "budget/update",
+                method: "PATCH",
+                body: updateBudgetData,
+                validateStatus: (response) =>
+                    response.status === 200,
+            }),
+            invalidatesTags: ['Budgets'],
+        }),
+        deleteBudget: builder.mutation({
+            query: (deleteBudgetData) => ({
+                url: "budget/delete",
+                method: "DELETE",
+                body: deleteBudgetData,
+                validateStatus: (response) =>
+                    response.status === 204,
+            }),
+            invalidatesTags: ['Budgets'],
+        }),
+
+
+
+
+
+        // EXPENSES
+
         expenses: builder.query({
             query: () => "expense/viewall",
             providesTags: ['Expenses'],
@@ -58,6 +92,26 @@ export const authApi = createApi({
             }),
             invalidatesTags: ['Expenses', 'Budgets'],
         }),
+        updateExpense: builder.mutation({
+            query: (updateExpenseData) => ({
+                url: "expense/update",
+                method: "PATCH",
+                body: updateExpenseData,
+                validateStatus: (response) =>
+                    response.status === 200,
+            }),
+            invalidatesTags: ['Expenses', 'Budgets'],
+        }),
+        deleteExpense: builder.mutation({
+            query: (deleteExpenseData) => ({
+                url: "expense/delete",
+                method: "DELETE",
+                body: deleteExpenseData,
+                validateStatus: (response) =>
+                    response.status === 204,
+            }),
+            invalidatesTags: ['Expenses', 'Budgets'],
+        }),
     }),
 });
 
@@ -66,9 +120,13 @@ export const {
     useLoginMutation,
     useLogoutMutation,
     useGetUserQuery,
-    useAddBudgetMutation,
-    useAddExpenseMutation,
     useBudgetsQuery,
-    useExpensesQuery
+    useExpensesQuery,
+    useAddBudgetMutation,
+    useUpdateBudgetMutation,
+    useDeleteBudgetMutation,
+    useAddExpenseMutation,
+    useUpdateExpenseMutation,
+    useDeleteExpenseMutation,
 } = authApi;
 

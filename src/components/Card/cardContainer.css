@@ -6,7 +6,7 @@
     background-color: rgb(29, 29, 29,0);
     padding: 30px 50px;
     border-radius: 25px;
-    order: 4;
+    margin-top: 60px;
 }
 @media (max-width: 768px) {
 	.card-container{

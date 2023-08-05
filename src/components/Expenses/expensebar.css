@@ -2,15 +2,17 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background-color: #EEEEEE;
-    color:#393E46;
+    color:#ffffff;
     padding: 10px 12px;
-    border-radius: 15px;
+    border-radius: 10px;
+    position: relative;
+    border: 2px solid white;
+    order: 2;
 }
 .expense-img{
     border-radius: 50%;
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
 }
 .expense-data-container-left{
     width:100%;
@@ -25,16 +27,18 @@
 }
 
 .expense-title{
-    font-size: 0.64rem;
-    font-weight: 800;
+    font-size: 0.8rem;
+    font-weight: 600;
 }
 .expense-category,.expense-date,.expense-amount{
-    font-size: 0.45rem;
-    font-weight: 600;
+    font-size: 0.55rem;
+    font-weight: 400;
+    font-style: italic;
     width: fit-content;
 }
+
 .expense-amount{
-    font-weight: bold;
+    font-weight: 700;
 }
 
 @media (min-width: 768px) {
@@ -42,4 +46,5 @@
         height: 56px;
         width: 56px;
     }
+    
   }

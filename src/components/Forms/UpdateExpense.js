@@ -1,47 +1,52 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useBudgetsQuery, useAddExpenseMutation } from '../../apiSlice';
+import { useUpdateExpenseMutation, useBudgetsQuery } from '../../apiSlice';
 import { Success } from '../Success';
 import Loading from '../Loading';
-import titleCase from '../../TitleCase';
 
-const AddExpenseSchema = Yup.object().shape({
+const UpdateExpenseSchema = Yup.object().shape({
+    id: Yup.string().required('Id is required'),
     description: Yup.string().required('Description is required'),
     amount: Yup.number().required('Amount is required').positive('Amount must be a positive number'),
     budgetId: Yup.string().required('Selecting a Budget is required'),
 });
 
-function AddExpense({ handleAddExpense }) {
-    const { data: budgets, isSuccess: isBudgets } = useBudgetsQuery();
-    const initialValues = {
-        description: '',
-        amount: '',
-        budgetId: '',
-    };
+function UpdateExpense({ handleUpdateExpense, expenseId, budgetId, category, amount, description }) {
 
-    const [addExpense, { isLoading, isSuccess }] = useAddExpenseMutation();
+    const initialValues = {
+        amount: '',
+        description: '',
+        expenseId: expenseId,
+        budgetId: '',
+        category: ''
+    };
+    const [updateExpense, { isLoading, isSuccess }] = useUpdateExpenseMutation();
+    const { data: budgets, isSuccess: isBudgets } = useBudgetsQuery();
 
     const handleFormSubmit = async (values) => {
         try {
-            values.description = await titleCase(values.description);
-            await addExpense(values).unwrap().then((payload) => {
+            delete values.category;
+            await updateExpense(values).unwrap().then((payload) => {
+                console.log(payload);
                 setTimeout(() => {
-                    handleAddExpense(false);
+                    handleUpdateExpense(false);
                 }, 1100);
             }).catch((err) => {
                 alert("Error Occured Try again later");
-            });
+                console.log(err);
+            })
         } catch {
-            alert('Failed to add budget:');
+            alert('Failed to Update Expense:');
         }
     };
+
+
 
     return (
         <>
             <Formik
                 initialValues={initialValues}
-                validationSchema={AddExpenseSchema}
                 onSubmit={handleFormSubmit}
             >
                 {() => (
@@ -51,19 +56,14 @@ function AddExpense({ handleAddExpense }) {
                             isLoading ? <Loading /> :
                                 <>
                                     <div className='field-container'>
-                                        <label htmlFor="description">Description</label>
+                                        <label htmlFor="description">Updating this Expense</label>
                                         <Field type="text" id="description" name="description" />
                                         <ErrorMessage name="description" component="div" className="error" />
                                     </div>
                                     <div className='field-container'>
-                                        <label htmlFor="amount">Amount</label>
-                                        <Field type="number" id="amount" name="amount" />
-                                        <ErrorMessage name="amount" component="div" className="error" />
-                                    </div>
-                                    <div className='field-container'>
                                         <label htmlFor="budgetId">Budget</label>
                                         <Field as="select" id="budgetId" name="budgetId">
-                                            <option value="">Select a budget</option>
+                                            <option value=""></option>
                                             {!budgets.error && isBudgets ? budgets.map((budget) => (
                                                 <option key={budget._id} value={budget._id}>
                                                     {budget.name}
@@ -72,10 +72,16 @@ function AddExpense({ handleAddExpense }) {
                                         </Field>
                                         <ErrorMessage name="budgetId" component="div" className="error" />
                                     </div>
-                                    <button className='classic-btn auth-btn' type="submit" disabled={isLoading}>
-                                        {isLoading ? 'Adding...' : 'Add Expense'}
+                                    <div className='field-container'>
+                                        <label htmlFor="amount">Amount</label>
+                                        <Field type="number" id="amount" name="amount" />
+                                        <ErrorMessage name="amount" component="div" className="error" />
+                                    </div>
+                                    <button className='classic-btn' type="submit" disabled={isLoading}>
+                                        {isLoading ? 'Updating...' : 'Update Expense'}
                                     </button>
-                                </>}
+                                </>
+                        }
                     </Form>
                 )}
             </Formik>
@@ -83,4 +89,4 @@ function AddExpense({ handleAddExpense }) {
     );
 }
 
-export default AddExpense;
+export default UpdateExpense;

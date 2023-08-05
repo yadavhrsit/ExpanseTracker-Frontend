@@ -1,7 +1,7 @@
 .dashboard-page{
     width: 100%;
     display: flex;
-    gap: 20px;
+    gap: 10px;
     flex-wrap: wrap;
 }
 .grid{
@@ -10,8 +10,9 @@
     display: flex;
     justify-content: space-between;
     order: 2;
-    margin-top: 60px;
+    gap: 10px;
 }
+
 .classic-btn{
     max-width: fit-content;
     padding: 10px 20px;
@@ -24,7 +25,7 @@
 }
 .view-button{
     position: absolute;
-    bottom: 5%;
+    bottom: 20px;
     left: 2.5%;
 }
 .section-header-container{

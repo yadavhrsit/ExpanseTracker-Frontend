@@ -6,14 +6,14 @@ import AddBudget from '../Forms/AddBudget';
 import Loading from '../Loading';
 
 function BudgetsContainer() {
-    const { data: budgets, isSuccess: isBudgets, isError: isBudgetsError, isFetching } = useBudgetsQuery();
+    const { data: budgets, isSuccess: isBudgets, isError: isBudgetsError, isLoading } = useBudgetsQuery();
     const [showAddBudget, setshowAddBudget] = useState(false);
 
     const handleAddBudget = (expense) => {
         setshowAddBudget(expense);
     };
 
-    if (isFetching) {
+    if (isLoading) {
         return (
             <div className='budgets-container'>
                 <div className='section-header-container'>
@@ -66,8 +66,9 @@ function BudgetsContainer() {
                     </div>
                     {
                         Budgets.map((budget, index) => (
-                            <BudgetBar total={budget.amount} score={budget.totalExpenses} name={budget.name} key={index} />
+                            <BudgetBar total={budget.amount} score={budget.totalExpenses} name={budget.name} id={budget._id} key={index} />
                         ))
+
                     }
                     <button className='classic-btn view-button'>View All</button>
                 </div>
@@ -80,7 +81,7 @@ function BudgetsContainer() {
                     </div>
                     {
                         Budgets.map((budget, index) => (
-                            <BudgetBar total={budget.amount} score={budget.totalExpenses} name={budget.name} key={index} />
+                            <BudgetBar total={budget.amount} score={budget.totalExpenses} name={budget.name} id={budget._id} key={index} />
                         ))
                     }
                     <button className='classic-btn view-button'>View All</button>

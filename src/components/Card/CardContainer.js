@@ -14,10 +14,8 @@ const getObjectsWithTodayDate = (data) => {
         const objectYear = objectDate.getFullYear();
         const objectMonth = objectDate.getMonth() + 1;
         const objectDay = objectDate.getDate();
-
         return objectYear === year && objectMonth === month && objectDay === day;
     });
-
     return filteredObjects;
 };
 
@@ -35,9 +33,12 @@ function CardContainer() {
         if (isExpenses && expenses) {
             if (expenses.length > 0) {
                 const filteredObjects = getObjectsWithTodayDate(expenses);
-                if (filteredObjects) {
+                if (filteredObjects.length !== 0) {
                     setlastObject(filteredObjects[filteredObjects.length - 1]);
                     setTodayObjects(filteredObjects);
+                }
+                else {
+                    setlastObject(expenses[expenses.length - 1]);
                 }
             }
             else {
@@ -63,7 +64,6 @@ function CardContainer() {
             foundObjects.forEach((obj) => setExceededBudgets(current => [...current, obj.name]));
         }
     }
-
     return (
         <div className='card-container flip-in-diag-1-tr'>
             <Card number={todayObjects.length} title={"Expenses made today"} />

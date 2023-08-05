@@ -6,14 +6,14 @@ import AddExpense from '../Forms/AddExpense';
 import Loading from '../Loading';
 
 function ExpensesContainer() {
-    const { data: expenses, isSuccess: isExpenses, isError: isExpensesError, isFetching } = useExpensesQuery();
+    const { data: expenses, isSuccess: isExpenses, isError: isExpensesError, isLoading } = useExpensesQuery();
     const [showAddExpense, setshowAddExpense] = useState(false);
 
     const handleAddExpense = (expense) => {
         setshowAddExpense(expense);
     };
 
-    if (isFetching) {
+    if (isLoading) {
         return (
             <div className='expenses-container'>
                 <div className='section-header-container' id='expenses-container-header'>
@@ -51,9 +51,9 @@ function ExpensesContainer() {
             )
         else if (expenses && Array.isArray(expenses)) {
             if (expenses.length > 5) {
-                Expenses = expenses.slice(-5);
+                const UnsortedExpenses = expenses.slice(-5);
+                Expenses = [...UnsortedExpenses].reverse();
             }
-
             else {
                 Expenses = expenses;
             }
@@ -66,7 +66,7 @@ function ExpensesContainer() {
                         </div>
                         {
                             Expenses.map((expense, index) => (
-                                <ExpenseBar title={expense.description} date={expense.date} category={expense.category} amount={expense.amount} key={index} />
+                                <ExpenseBar description={expense.description} id={expense._id} date={expense.date} category={expense.category} amount={expense.amount} budgetId={expense.budgetId} key={index} />
                             ))
                         }
                         <button className='classic-btn view-button'>View All</button>
@@ -79,8 +79,8 @@ function ExpensesContainer() {
                             <button className='classic-btn' onClick={() => setshowAddExpense(true)}>+ Add Expense</button>
                         </div>
                         {
-                            Expenses.map((expense, index) => (
-                                <ExpenseBar title={expense.description} date={expense.date} category={expense.category} amount={expense.amount} key={index} />
+                            Expenses.slice().reverse().map((expense, index) => (
+                                <ExpenseBar description={expense.description} expenseId={expense._id} date={expense.date} category={expense.category} amount={expense.amount} budgetId={expense.budgetId} key={index} />
                             ))
                         }
                         <button className='classic-btn view-button'>View All</button>
@@ -110,9 +110,5 @@ function ExpensesContainer() {
                 </div>
         )
     }
-
-
-
 }
-
 export default ExpensesContainer
