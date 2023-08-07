@@ -26,11 +26,11 @@ function Dashboard() {
         return (
             <div className='dashboard-page'>
                 <ProfileContainer name={profile.userName} />
+                <CardContainer />
                 <div className='grid'>
                     <BudgetsContainer />
                     <ExpensesContainer />
                 </div>
-                <CardContainer />
             </div>
         )
     }

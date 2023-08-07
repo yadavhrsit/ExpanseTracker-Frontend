@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import './budgetsContainer.css';
 import BudgetBar from './BudgetBar';
-import { useBudgetsQuery } from '../../apiSlice';
+import { useBudgetsQuery, useExpensesQuery } from '../../apiSlice';
 import AddBudget from '../Forms/AddBudget';
 import Loading from '../Loading';
 
 function BudgetsContainer() {
     const { data: budgets, isSuccess: isBudgets, isError: isBudgetsError, isLoading } = useBudgetsQuery();
+    const { data: expenses, isSuccess: isExpenses, isError: isExpensesError, isFetching: isExpensesFetching } = useExpensesQuery();
     const [showAddBudget, setshowAddBudget] = useState(false);
-
     const handleAddBudget = (expense) => {
         setshowAddBudget(expense);
     };
+
+
 
     if (isLoading) {
         return (
@@ -55,6 +57,24 @@ function BudgetsContainer() {
 
             else {
                 Budgets = budgets;
+            }
+            const totalExpensesByBudget = {};
+            expenses.forEach(expense => {
+                const budgetId = expense.budgetId;
+                const amount = expense.amount;
+
+                if (totalExpensesByBudget.hasOwnProperty(budgetId)) {
+                    totalExpensesByBudget[budgetId] += amount;
+                } else {
+                    totalExpensesByBudget[budgetId] = amount;
+                }
+            });
+
+
+            for (const budget of Budgets) {
+                const budgetId = budget._id;
+                const totalExpenses = totalExpensesByBudget[budgetId] || 0;
+                budget.totalExpenses = totalExpenses;
             }
         }
         return (

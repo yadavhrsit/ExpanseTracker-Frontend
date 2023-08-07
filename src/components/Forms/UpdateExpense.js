@@ -6,7 +6,7 @@ import { Success } from '../Success';
 import Loading from '../Loading';
 
 const UpdateExpenseSchema = Yup.object().shape({
-    id: Yup.string().required('Id is required'),
+    id: Yup.string().optional('Id is required'),
     description: Yup.string().required('Description is required'),
     amount: Yup.number().required('Amount is required').positive('Amount must be a positive number'),
     budgetId: Yup.string().required('Selecting a Budget is required'),
@@ -15,20 +15,19 @@ const UpdateExpenseSchema = Yup.object().shape({
 function UpdateExpense({ handleUpdateExpense, expenseId, budgetId, category, amount, description }) {
 
     const initialValues = {
-        amount: '',
-        description: '',
+        amount: amount,
+        description: description,
         expenseId: expenseId,
-        budgetId: '',
-        category: ''
+        budgetId: budgetId,
     };
     const [updateExpense, { isLoading, isSuccess }] = useUpdateExpenseMutation();
     const { data: budgets, isSuccess: isBudgets } = useBudgetsQuery();
 
     const handleFormSubmit = async (values) => {
         try {
-            delete values.category;
+            console.log(initialValues)
+            console.log(values);
             await updateExpense(values).unwrap().then((payload) => {
-                console.log(payload);
                 setTimeout(() => {
                     handleUpdateExpense(false);
                 }, 1100);
@@ -63,7 +62,7 @@ function UpdateExpense({ handleUpdateExpense, expenseId, budgetId, category, amo
                                     <div className='field-container'>
                                         <label htmlFor="budgetId">Budget</label>
                                         <Field as="select" id="budgetId" name="budgetId">
-                                            <option value=""></option>
+                                            <option key={budgetId} value={budgetId}></option>
                                             {!budgets.error && isBudgets ? budgets.map((budget) => (
                                                 <option key={budget._id} value={budget._id}>
                                                     {budget.name}

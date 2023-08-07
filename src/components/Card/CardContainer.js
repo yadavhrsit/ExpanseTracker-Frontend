@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './cardContainer.css';
 import Card from './Card';
+
 import { useExpensesQuery, useBudgetsQuery } from '../../apiSlice';
+
 
 const getObjectsWithTodayDate = (data) => {
     const currentDate = new Date();
@@ -21,13 +23,11 @@ const getObjectsWithTodayDate = (data) => {
 
 
 function CardContainer() {
-    const { data: budgets, isSuccess: isBudgets, isError: isBudgetsError, isFetching: isBudgetsFetching } = useBudgetsQuery();
+    const { data: budgets, isError: isBudgetsError, isFetching: isBudgetsFetching } = useBudgetsQuery();
     const { data: expenses, isSuccess: isExpenses, isError: isExpensesError, isFetching: isExpensesFetching } = useExpensesQuery();
 
     const [todayObjects, setTodayObjects] = useState([]);
     const [lastObject, setlastObject] = useState([]);
-    const [exceededBudgets, setExceededBudgets] = useState([]);
-
 
     useEffect(() => {
         if (isExpenses && expenses) {
@@ -46,7 +46,7 @@ function CardContainer() {
                 setTodayObjects([]);
             }
         }
-    }, [isExpenses, expenses]);
+    }, []);
 
     if (isBudgetsFetching || isExpensesFetching) {
         return <div>Loading...</div>;
@@ -57,18 +57,35 @@ function CardContainer() {
     }
 
     if (!budgets.error) {
+        const totalExpensesByBudget = {};
+        expenses.forEach(expense => {
+            const budgetId = expense.budgetId;
+            const amount = expense.amount;
 
-        const foundObjects = budgets.filter((obj) => obj.amount === obj.totalExpenses);
+            if (totalExpensesByBudget.hasOwnProperty(budgetId)) {
+                totalExpensesByBudget[budgetId] += amount;
+            } else {
+                totalExpensesByBudget[budgetId] = amount;
+            }
+        });
+        var exceededBudgets = 0;
+        var budgetsData = [];
+        for (const budget of budgets) {
+            const budgetId = budget._id;
+            const totalExpenses = totalExpensesByBudget[budgetId] || 0;
 
-        if (foundObjects.length > 0) {
-            foundObjects.forEach((obj) => setExceededBudgets(current => [...current, obj.name]));
+            budgetsData.push({ 'name': budget.name, 'totalExpenses': totalExpenses });
+
+            if (totalExpenses === budget.amount) {
+                exceededBudgets++;
+            }
         }
     }
     return (
         <div className='card-container flip-in-diag-1-tr'>
             <Card number={todayObjects.length} title={"Expenses made today"} />
             <Card number={lastObject.amount ? `${lastObject.amount}Rs` : `${0}rs`} description={lastObject ? lastObject.description : ""} title={"Last Expense"} />
-            <Card number={exceededBudgets.length} title={"Budgets are Full"} />
+            <Card number={exceededBudgets} title={"Budgets are Full"} />
             <Card number={!budgets.error ? budgets.length : 0} title={"Active Budgets"} />
         </div>
     )

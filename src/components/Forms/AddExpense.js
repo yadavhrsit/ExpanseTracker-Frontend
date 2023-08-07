@@ -30,7 +30,7 @@ function AddExpense({ handleAddExpense }) {
                     handleAddExpense(false);
                 }, 1100);
             }).catch((err) => {
-                alert("Error Occured Try again later");
+                console.log(err.data.error);
             });
         } catch {
             alert('Failed to add budget:');

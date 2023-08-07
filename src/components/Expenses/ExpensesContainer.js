@@ -8,7 +8,6 @@ import Loading from '../Loading';
 function ExpensesContainer() {
     const { data: expenses, isSuccess: isExpenses, isError: isExpensesError, isLoading } = useExpensesQuery();
     const [showAddExpense, setshowAddExpense] = useState(false);
-
     const handleAddExpense = (expense) => {
         setshowAddExpense(expense);
     };
