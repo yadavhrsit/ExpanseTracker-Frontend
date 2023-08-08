@@ -8,12 +8,12 @@ import Loading from '../Loading';
 function BudgetsContainer() {
     const { data: budgets, isSuccess: isBudgets, isError: isBudgetsError, isLoading } = useBudgetsQuery();
     const { data: expenses, isSuccess: isExpenses, isError: isExpensesError, isFetching: isExpensesFetching } = useExpensesQuery();
+
     const [showAddBudget, setshowAddBudget] = useState(false);
+
     const handleAddBudget = (expense) => {
         setshowAddBudget(expense);
     };
-
-
 
     if (isLoading) {
         return (
@@ -27,18 +27,34 @@ function BudgetsContainer() {
         )
     }
 
-    else if (isBudgets) {
-        if (budgets.error) {
+    if (budgets) {
+        const totalExpensesByBudget = {};
+        if (expenses) {
+            expenses.forEach(expense => {
+                const budgetId = expense.budgetId;
+                const amount = expense.amount;
+
+                if (totalExpensesByBudget.hasOwnProperty(budgetId)) {
+                    totalExpensesByBudget[budgetId] += amount;
+                } else {
+                    totalExpensesByBudget[budgetId] = amount;
+                }
+            });
+        }
+        var budgetsData = {};
+        for (const budget of budgets) {
+            const budgetId = budget._id;
+            const totalExpenses = totalExpensesByBudget[budgetId] || 0;
+            budgetsData[budget.name] = totalExpenses;
+        }
+        if (budgets.length === 0) {
             return (
-                showAddBudget ? <> <div className='modal'> <AddBudget handleAddBudget={handleAddBudget} /> <button className='close-btn' onClick={() => setshowAddBudget(false)}>x</button> </div>
-                    <div className='budgets-container'>
-                        <div className='section-header-container'>
-                            <p className='section-heading'>Budgets</p>
-                            <button className='classic-btn' onClick={() => setshowAddBudget(true)}>+ Add Budget</button>
+                showAddBudget ?
+                    <div className='modal'>
+                        <div className='form-wrapper'>
+                            <AddBudget handleAddBudget={handleAddBudget} /> <button className='close-btn' onClick={() => setshowAddBudget(false)}>x</button>
                         </div>
-                        <p className='section-heading'>No Budgets to show! Please add some</p>
                     </div>
-                </>
                     :
                     <div className='budgets-container'>
                         <div className='section-header-container'>
@@ -58,41 +74,15 @@ function BudgetsContainer() {
             else {
                 Budgets = budgets;
             }
-            const totalExpensesByBudget = {};
-            expenses.forEach(expense => {
-                const budgetId = expense.budgetId;
-                const amount = expense.amount;
 
-                if (totalExpensesByBudget.hasOwnProperty(budgetId)) {
-                    totalExpensesByBudget[budgetId] += amount;
-                } else {
-                    totalExpensesByBudget[budgetId] = amount;
-                }
-            });
-
-
-            for (const budget of Budgets) {
-                const budgetId = budget._id;
-                const totalExpenses = totalExpensesByBudget[budgetId] || 0;
-                budget.totalExpenses = totalExpenses;
-            }
         }
         return (
-            showAddBudget ? <> <div className='modal'> <AddBudget handleAddBudget={handleAddBudget} /> <button className='close-btn' onClick={() => setshowAddBudget(false)}>x</button> </div>
-                <div className='budgets-container'>
-                    <div className='section-header-container'>
-                        <p className='section-heading'>Budgets</p>
-                        <button className='classic-btn' onClick={() => setshowAddBudget(true)}>+ Add Budget</button>
+            showAddBudget ?
+                <div className='modal'>
+                    <div className='form-wrapper'>
+                        <AddBudget handleAddBudget={handleAddBudget} /> <button className='close-btn' onClick={() => setshowAddBudget(false)}>x</button>
                     </div>
-                    {
-                        Budgets.map((budget, index) => (
-                            <BudgetBar total={budget.amount} score={budget.totalExpenses} name={budget.name} id={budget._id} key={index} />
-                        ))
-
-                    }
-                    <button className='classic-btn view-button'>View All</button>
                 </div>
-            </>
                 :
                 <div className='budgets-container'>
                     <div className='section-header-container'>
@@ -101,24 +91,22 @@ function BudgetsContainer() {
                     </div>
                     {
                         Budgets.map((budget, index) => (
-                            <BudgetBar total={budget.amount} score={budget.totalExpenses} name={budget.name} id={budget._id} key={index} />
+                            <BudgetBar total={budget.amount} score={budgetsData[budget.name]} name={budget.name} id={budget._id} key={index} />
                         ))
                     }
                     <button className='classic-btn view-button'>View All</button>
                 </div>
         )
     }
-    else if (isBudgetsError) {
+
+    if (isBudgetsError) {
         return (
-            showAddBudget ? <> <div className='modal'> <AddBudget handleAddBudget={handleAddBudget} /> <button className='close-btn' onClick={() => setshowAddBudget(false)}>x</button> </div>
-                <div className='budgets-container'>
-                    <div className='section-header-container'>
-                        <p className='section-heading'>Budgets</p>
-                        <button className='classic-btn' onClick={() => setshowAddBudget(true)}>+ Add Budget</button>
+            showAddBudget ?
+                <div className='modal'>
+                    <div className='form-wrapper'>
+                        <AddBudget handleAddBudget={handleAddBudget} /> <button className='close-btn' onClick={() => setshowAddBudget(false)}>x</button>
                     </div>
-                    <p>Error Loading Budgets... Server Error!</p>
                 </div>
-            </>
                 :
                 <div className='budgets-container'>
                     <div className='section-header-container'>

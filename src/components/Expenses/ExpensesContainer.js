@@ -23,21 +23,16 @@ function ExpensesContainer() {
             </div>
         )
     }
-    else if (isExpenses) {
+    if (isExpenses) {
         let Expenses;
-        if (expenses.error === "No Expenses found")
+        if (expenses.length === 0)
             return (
-                showAddExpense ? <> <div className='modal'> <AddExpense handleAddExpense={handleAddExpense} /> <button className='close-btn-exp' onClick={() => setshowAddExpense(false)}>x</button> </div>
-
-                    <div className='expenses-container'>
-                        <div className='section-header-container' id='expenses-container-header'>
-                            <p className="section-heading">Expenses</p>
-                            <button className='classic-btn' onClick={() => setshowAddExpense(true)}>+ Add Expense</button>
+                showAddExpense ?
+                    <div className='modal'>
+                        <div className="form-wrapper"> <AddExpense handleAddExpense={handleAddExpense} />
+                            <button className='close-btn-exp' onClick={() => setshowAddExpense(false)}>x</button>
                         </div>
-                        <p className="section-heading">No Expenses to show yet!</p>
-                        <button className='classic-btn view-button'>View All</button>
                     </div>
-                </>
                     :
                     <div className='expenses-container'>
                         <div className='section-header-container' id='expenses-container-header'>
@@ -57,20 +52,12 @@ function ExpensesContainer() {
                 Expenses = expenses;
             }
             return (
-                showAddExpense ? <> <div className='modal'> <AddExpense handleAddExpense={handleAddExpense} /> <button className='close-btn-exp' onClick={() => setshowAddExpense(false)}>x</button> </div>
-                    <div className='expenses-container'>
-                        <div className='section-header-container' id='expenses-container-header'>
-                            <p className="section-heading">Expenses</p>
-                            <button className='classic-btn' onClick={() => setshowAddExpense(true)}>+ Add Expense</button>
+                showAddExpense ?
+                    <div className='modal'>
+                        <div className="form-wrapper"> <AddExpense handleAddExpense={handleAddExpense} />
+                            <button className='close-btn-exp' onClick={() => setshowAddExpense(false)}>x</button>
                         </div>
-                        {
-                            Expenses.map((expense, index) => (
-                                <ExpenseBar description={expense.description} id={expense._id} date={expense.date} category={expense.category} amount={expense.amount} budgetId={expense.budgetId} key={index} />
-                            ))
-                        }
-                        <button className='classic-btn view-button'>View All</button>
                     </div>
-                </>
                     :
                     <div className='expenses-container'>
                         <div className='section-header-container' id='expenses-container-header'>
@@ -85,20 +72,16 @@ function ExpensesContainer() {
                         <button className='classic-btn view-button'>View All</button>
                     </div>
             )
-
         }
     }
     else if (isExpensesError) {
         return (
-            showAddExpense ? <> <div className='modal'> <AddExpense handleAddExpense={handleAddExpense} /> <button className='close-btn-exp' onClick={() => setshowAddExpense(false)}>x</button> </div>
-                <div className='expenses-container'>
-                    <div className='section-header-container' id='expenses-container-header'>
-                        <p className="section-heading">Expenses</p>
-                        <button className='classic-btn' onClick={() => setshowAddExpense(true)}>+ Add Expense</button>
+            showAddExpense ?
+                <div className='modal'>
+                    <div className="form-wrapper"> <AddExpense handleAddExpense={handleAddExpense} />
+                        <button className='close-btn-exp' onClick={() => setshowAddExpense(false)}>x</button>
                     </div>
-                    <p className="section-heading">Error Loading Expenses... Server Error!</p>
                 </div>
-            </>
                 :
                 <div className='expenses-container'>
                     <div className='section-header-container' id='expenses-container-header'>

@@ -38,8 +38,10 @@ function ExpenseBar({ description, date, category, amount, expenseId, budgetId }
     return (
         showUpdateExpense ?
             <div className='modal'>
-                <UpdateExpense handleUpdateExpense={handleUpdateExpense} expenseId={expenseId} description={description} budgetId={budgetId} amount={amount} category={category} />
-                <button className='close-btn' onClick={() => setshowUpdateExpense(false)}>x</button>
+                <div className='form-wrapper'>
+                    <UpdateExpense handleUpdateExpense={handleUpdateExpense} expenseId={expenseId} description={description} budgetId={budgetId} amount={amount} category={category} />
+                    <button className='close-btn' onClick={() => setshowUpdateExpense(false)}>x</button>
+                </div>
             </div> :
             <div className='expensebar-container'>
                 <img src="https://dummyimage.com/60.png" alt="expense" className='expense-img' />

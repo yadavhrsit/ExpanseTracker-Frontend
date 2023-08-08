@@ -19,7 +19,6 @@ function BudgetBar({ total, score, name, id }) {
         try {
             const deleteBudgetData = { id };
             await deleteBudget(deleteBudgetData).unwrap().then((payload) => {
-                console.log(payload);
             }).catch((err) => {
                 console.log('Error:', err);
             })
@@ -30,8 +29,10 @@ function BudgetBar({ total, score, name, id }) {
     return (
         showUpdateBudget ?
             <div className='modal'>
-                <UpdateBudget handleUpdateBudget={handleUpdateBudget} id={id} name={name} />
-                <button className='close-btn' onClick={() => setshowUpdateBudget(false)}>x</button>
+                <div className='form-wrapper'>
+                    <UpdateBudget handleUpdateBudget={handleUpdateBudget} id={id} name={name} />
+                    <button className='close-btn' onClick={() => setshowUpdateBudget(false)}>x</button>
+                </div>
             </div> :
             <div className='budgetbar-container'>
                 <div className="budget-body">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useUpdateExpenseMutation, useBudgetsQuery } from '../../apiSlice';
@@ -23,17 +23,16 @@ function UpdateExpense({ handleUpdateExpense, expenseId, budgetId, category, amo
     const [updateExpense, { isLoading, isSuccess }] = useUpdateExpenseMutation();
     const { data: budgets, isSuccess: isBudgets } = useBudgetsQuery();
 
+    const [error, seterror] = useState(null)
+
     const handleFormSubmit = async (values) => {
         try {
-            console.log(initialValues)
-            console.log(values);
             await updateExpense(values).unwrap().then((payload) => {
                 setTimeout(() => {
                     handleUpdateExpense(false);
                 }, 1100);
             }).catch((err) => {
-                alert("Error Occured Try again later");
-                console.log(err);
+                seterror(err.data.error);
             })
         } catch {
             alert('Failed to Update Expense:');
@@ -76,6 +75,7 @@ function UpdateExpense({ handleUpdateExpense, expenseId, budgetId, category, amo
                                         <Field type="number" id="amount" name="amount" />
                                         <ErrorMessage name="amount" component="div" className="error" />
                                     </div>
+                                    {error ? <p>{error}</p> : null}
                                     <button className='classic-btn' type="submit" disabled={isLoading}>
                                         {isLoading ? 'Updating...' : 'Update Expense'}
                                     </button>

@@ -4,7 +4,7 @@
     order: 0;
     position:fixed;
     background-color: #222831;
-    z-index: 99;
+    z-index: 2;
     top: 0;
     padding: 30px 10px 10px;
     }

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useBudgetsQuery, useAddExpenseMutation } from '../../apiSlice';
 import { Success } from '../Success';
 import Loading from '../Loading';
+import Error from '../Error';
 import titleCase from '../../TitleCase';
 
 const AddExpenseSchema = Yup.object().shape({
@@ -22,6 +23,8 @@ function AddExpense({ handleAddExpense }) {
 
     const [addExpense, { isLoading, isSuccess }] = useAddExpenseMutation();
 
+    const [error, seterror] = useState(null)
+
     const handleFormSubmit = async (values) => {
         try {
             values.description = await titleCase(values.description);
@@ -30,7 +33,7 @@ function AddExpense({ handleAddExpense }) {
                     handleAddExpense(false);
                 }, 1100);
             }).catch((err) => {
-                console.log(err.data.error);
+                seterror(err.data.error);
             });
         } catch {
             alert('Failed to add budget:');
@@ -72,6 +75,7 @@ function AddExpense({ handleAddExpense }) {
                                         </Field>
                                         <ErrorMessage name="budgetId" component="div" className="error" />
                                     </div>
+                                    {error ? <p>{error}</p> : null}
                                     <button className='classic-btn auth-btn' type="submit" disabled={isLoading}>
                                         {isLoading ? 'Adding...' : 'Add Expense'}
                                     </button>

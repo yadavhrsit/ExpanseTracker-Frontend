@@ -56,7 +56,7 @@ function CardContainer() {
         return <div>Error: Data could not be fetched</div>;
     }
 
-    if (!budgets.error) {
+    if (budgets) {
         const totalExpensesByBudget = {};
         expenses.forEach(expense => {
             const budgetId = expense.budgetId;
@@ -73,9 +73,7 @@ function CardContainer() {
         for (const budget of budgets) {
             const budgetId = budget._id;
             const totalExpenses = totalExpensesByBudget[budgetId] || 0;
-
             budgetsData.push({ 'name': budget.name, 'totalExpenses': totalExpenses });
-
             if (totalExpenses === budget.amount) {
                 exceededBudgets++;
             }

@@ -48,7 +48,7 @@ body {
 
 @media (max-width: 768px) {
 	html {
-	  font-size: 16px;
+	  font-size: 22px;
 	}
 	body{
 		padding: 20px 8px;
@@ -129,7 +129,7 @@ a{
 
 .modal {
     position: fixed; 
-    z-index: 100; 
+    z-index: 3; 
     left: 0;
     top: 0;
     width: 100%;
@@ -137,13 +137,18 @@ a{
     overflow: hidden; 
     background-color: rgba(0, 0, 0, 0.932); 
     padding: 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column-reverse;
 }
 .modal form{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: calc(100% - 20px);
+  width: calc(100vw - 20px);
     -webkit-animation: slide-in-fwd-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: slide-in-fwd-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
@@ -152,19 +157,13 @@ a{
     width: 40px;
     border-radius: 50%;
     font-size: 26px;
-    position: absolute;
-    z-index: 100;
-    top: calc(50% - 192px);
-    left: calc(50% - -180px);
-    transform: translate(-50%, -50%);
     cursor: pointer;
     background-color: #393E46;
     color: #EEEEEE;
     line-height: 1.5;
+    align-self: flex-end;
 }
-.close-btn-exp{
-    top: calc(50% - 228px);
-}
+
 .option-menu{
   display: flex;
   flex-direction: column;
@@ -209,14 +208,6 @@ a{
     }
     .error{
         font-size: 0.8rem;
-    }
-    .close-btn{
-        top: calc(50% - 170px);
-        left: calc(100vw - 6vw);
-    }
-    .close-btn-exp{
-        top: calc(50% - 204px);
-        left: calc(100vw - 6vw);
     }
   }
 
