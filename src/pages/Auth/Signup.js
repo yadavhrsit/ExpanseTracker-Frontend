@@ -39,6 +39,7 @@ const Signup = () => {
                 validationSchema={SignupSchema}
                 onSubmit={async (values) => {
                     try {
+                        console.log(values)
                         const response = await axios.post(`${BASE_URL}/auth/register`, {
                             name: values.name,
                             email: values.email,
