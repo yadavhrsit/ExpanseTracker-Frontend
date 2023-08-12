@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './cardContainer.css';
 import Card from './Card';
 import Loading from '../Loading';
+import TodayExpenses from '../../icons/TodayExpenses.svg';
+import RecentExpense from '../../icons/RecentTransaction.svg';
+import ActiveBudget from '../../icons/ActiveBudgets.svg';
+import BudgetsFull from '../../icons/BudgetsFull.svg';
 
 import { useExpensesQuery, useBudgetsQuery } from '../../apiSlice';
 
@@ -51,8 +55,31 @@ function CardContainer() {
 
     if (isBudgetsFetching || isExpensesFetching) {
         return (
-            <div className='card-container' style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                <Loading />
+            <div className='card-container'>
+                <div className='card'>
+                    <img src={TodayExpenses} alt="icon" />
+                    <div style={{ height: '100px' }}>
+                        <Loading />
+                    </div>
+                </div>
+                <div className='card'>
+                    <img src={RecentExpense} alt="icon" />
+                    <div style={{ height: '100px' }}>
+                        <Loading />
+                    </div>
+                </div>
+                <div className='card'>
+                    <img src={BudgetsFull} alt="icon" />
+                    <div style={{ height: '100px' }}>
+                        <Loading />
+                    </div>
+                </div>
+                <div className='card'>
+                    <img src={ActiveBudget} alt="icon" />
+                    <div style={{ height: '100px' }}>
+                        <Loading />
+                    </div>
+                </div>
             </div>
         )
     }
@@ -86,10 +113,10 @@ function CardContainer() {
     }
     return (
         <div className='card-container'>
-            <Card number={todayObjects.length} title={"Expenses made today"} />
-            <Card number={lastObject.amount ? `${lastObject.amount}Rs` : `${0}rs`} description={lastObject ? lastObject.description : ""} title={"Last Expense"} />
-            <Card number={exceededBudgets} title={"Budgets are Full"} />
-            <Card number={!budgets.error ? budgets.length : 0} title={"Active Budgets"} />
+            <Card number={todayObjects.length} title={"Expenses made today"} icon={TodayExpenses} />
+            <Card number={lastObject.amount ? `${lastObject.amount}Rs` : `${0}rs`} description={lastObject ? lastObject.description : ""} title={"Last Expense"} icon={RecentExpense} />
+            <Card number={exceededBudgets} title={"Budgets are Full"} icon={BudgetsFull} />
+            <Card number={!budgets.error ? budgets.length : 0} title={"Active Budgets"} icon={ActiveBudget} />
         </div>
     )
 }

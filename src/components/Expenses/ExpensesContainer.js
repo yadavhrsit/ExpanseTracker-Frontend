@@ -7,7 +7,7 @@ import Loading from '../Loading';
 
 function ExpensesContainer() {
     const { data: budgets, isSuccess: isBudgets } = useBudgetsQuery();
-    const { data: expenses, isSuccess: isExpenses, isError: isExpensesError, isLoading } = useExpensesQuery();
+    const { data: expenses, isSuccess: isExpenses, isLoading } = useExpensesQuery();
     const [showAddExpense, setshowAddExpense] = useState(false);
     const handleAddExpense = (expense) => {
         setshowAddExpense(expense);
@@ -40,7 +40,6 @@ function ExpensesContainer() {
                             <button className='classic-btn' onClick={() => setshowAddExpense(true)} disabled={isBudgets && budgets.length === 0}>+ Add Expense</button>
                         </div>
                         <p className="section-heading">No Expenses to show yet!</p>
-                        <button className='classic-btn view-button' disabled={isBudgets && budgets.length === 0}>View All</button>
                     </div>
             )
         else if (expenses && Array.isArray(expenses)) {

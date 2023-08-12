@@ -18,7 +18,7 @@ const Login = () => {
         navigate('/');
     }
 
-
+    const [response, setresponse] = useState("")
     const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [login] = useLoginMutation();
 
@@ -34,6 +34,7 @@ const Login = () => {
 
                 })
                 .catch((error) => {
+                    setresponse(error.data.isError);
                     setIsLoggingIn(false);
                 });
 
@@ -74,6 +75,7 @@ const Login = () => {
                         <button className='classic-btn auth-btn' type="submit" disabled={isLoggingIn}>
                             {isLoggingIn ? 'Logging In...' : 'Submit'}
                         </button>
+                        {response ? <p>{response}</p> : null}
                         <a href="/register">Not a Registered user ? <strong>Signup</strong></a>
                     </Form>
                 )}
