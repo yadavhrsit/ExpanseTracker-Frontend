@@ -1,6 +1,7 @@
 .card{
     display: flex;
     width: 6rem;
+    max-height: 210px;
     flex-direction: column;
     gap: 8px;
     align-items: center;
@@ -12,8 +13,8 @@
     text-align: center;
 }
 .card img{
-    height: 60px;
-    width: 60px;
+    height: 100px;
+    width: 100px;
     border-radius: 50%;
 }
 

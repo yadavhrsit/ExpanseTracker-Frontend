@@ -1,11 +1,13 @@
 .progress-bar{
-    height: 4px;
+    height: 14px;
     background: rgb(0,91,255);
     border-radius: 10px;
     overflow: hidden;
+    margin-top: 5px;
 }
 .budgetbar-container{
   position: relative;
+  margin-top: 6px;
 }
 .budget-caption{
   font-size: 0.7rem;

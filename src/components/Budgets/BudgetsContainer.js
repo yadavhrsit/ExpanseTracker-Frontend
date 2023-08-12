@@ -61,7 +61,7 @@ function BudgetsContainer() {
                             <p className='section-heading'>Budgets</p>
                             <button className='classic-btn' onClick={() => setshowAddBudget(true)}>+ Add Budget</button>
                         </div>
-                        <p className='section-heading'>No Budgets to show! Please add some</p>
+                        <p className='section-heading'>No Budgets to show!</p>
                     </div>
             )
         }
@@ -94,7 +94,7 @@ function BudgetsContainer() {
                             <BudgetBar total={budget.amount} score={budgetsData[budget.name]} name={budget.name} id={budget._id} key={index} />
                         ))
                     }
-                    <button className='classic-btn view-button'>View All</button>
+
                 </div>
         )
     }
