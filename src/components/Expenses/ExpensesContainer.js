@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import ExpenseBar from './ExpenseBar'
 import './expensesContainer.css';
-import { useExpensesQuery } from '../../apiSlice';
+import { useExpensesQuery, useBudgetsQuery } from '../../apiSlice';
 import AddExpense from '../Forms/AddExpense';
 import Loading from '../Loading';
 
 function ExpensesContainer() {
+    const { data: budgets, isSuccess: isBudgets } = useBudgetsQuery();
     const { data: expenses, isSuccess: isExpenses, isError: isExpensesError, isLoading } = useExpensesQuery();
     const [showAddExpense, setshowAddExpense] = useState(false);
     const handleAddExpense = (expense) => {
         setshowAddExpense(expense);
     };
-
     if (isLoading) {
         return (
             <div className='expenses-container'>
@@ -30,17 +30,17 @@ function ExpensesContainer() {
                 showAddExpense ?
                     <div className='modal'>
                         <div className="form-wrapper"> <AddExpense handleAddExpense={handleAddExpense} />
-                            <button className='close-btn-exp' onClick={() => setshowAddExpense(false)}>x</button>
+                            <button className='close-btn-exp' onClick={() => setshowAddExpense(false)} >x</button>
                         </div>
                     </div>
                     :
                     <div className='expenses-container'>
                         <div className='section-header-container' id='expenses-container-header'>
                             <p className="section-heading">Expenses</p>
-                            <button className='classic-btn' onClick={() => setshowAddExpense(true)}>+ Add Expense</button>
+                            <button className='classic-btn' onClick={() => setshowAddExpense(true)} disabled={isBudgets && budgets.length === 0}>+ Add Expense</button>
                         </div>
                         <p className="section-heading">No Expenses to show yet!</p>
-                        <button className='classic-btn view-button'>View All</button>
+                        <button className='classic-btn view-button' disabled={isBudgets && budgets.length === 0}>View All</button>
                     </div>
             )
         else if (expenses && Array.isArray(expenses)) {
@@ -74,23 +74,6 @@ function ExpensesContainer() {
             )
         }
     }
-    else if (isExpensesError) {
-        return (
-            showAddExpense ?
-                <div className='modal'>
-                    <div className="form-wrapper"> <AddExpense handleAddExpense={handleAddExpense} />
-                        <button className='close-btn-exp' onClick={() => setshowAddExpense(false)}>x</button>
-                    </div>
-                </div>
-                :
-                <div className='expenses-container'>
-                    <div className='section-header-container' id='expenses-container-header'>
-                        <p className="section-heading">Expenses</p>
-                        <button className='classic-btn' onClick={() => setshowAddExpense(true)}>+ Add Expense</button>
-                    </div>
-                    <p className="section-heading">Error Loading Expenses... Server Error!</p>
-                </div>
-        )
-    }
+
 }
 export default ExpensesContainer

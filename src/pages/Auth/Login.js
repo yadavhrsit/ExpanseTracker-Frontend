@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation, useGetUserQuery } from '../../apiSlice';
+import Loading from '../../components/Loading';
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Invalid email format').max(50, 'Email must be at most 50 characters'),
@@ -11,14 +12,10 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
     let navigate = useNavigate();
-
     const { isLoading, isSuccess } = useGetUserQuery();
 
     if (isSuccess) {
-        navigate("/");
-    }
-    if (isLoading) {
-        console.log("... is Loading")
+        navigate('/');
     }
 
 
@@ -30,22 +27,18 @@ const Login = () => {
         try {
             await login(values).unwrap()
                 .then((payload) => {
-                    setIsLoggingIn(false);
-                    console.log(payload.message)
                     setTimeout(() => {
+                        setIsLoggingIn(false);
                         navigate('/');
-                        console.log('redirecting...')
                     }, 500);
 
                 })
                 .catch((error) => {
                     setIsLoggingIn(false);
-                    console.error(error.data.isError)
                 });
 
         } catch (error) {
             alert('Login error:', error);
-            console.error('Login error:', error);
         } finally {
             setIsLoggingIn(false);
         }
@@ -53,6 +46,12 @@ const Login = () => {
 
     return (
         <>
+            {
+                isLoading ? <div className="modal"> <Loading /> </div> : null
+            }
+            {
+                isLoggingIn ? <div className="modal"> <Loading /> </div> : null
+            }
             <Formik
                 initialValues={{ email: '', password: '' }}
                 validationSchema={LoginSchema}

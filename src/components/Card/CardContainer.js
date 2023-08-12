@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './cardContainer.css';
 import Card from './Card';
+import Loading from '../Loading';
 
 import { useExpensesQuery, useBudgetsQuery } from '../../apiSlice';
 
@@ -8,7 +9,7 @@ import { useExpensesQuery, useBudgetsQuery } from '../../apiSlice';
 const getObjectsWithTodayDate = (data) => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1; // Months are zero-indexed, so added 1
+    const month = currentDate.getMonth() + 1;
     const day = currentDate.getDate();
 
     const filteredObjects = data.filter((object) => {
@@ -49,7 +50,11 @@ function CardContainer() {
     }, []);
 
     if (isBudgetsFetching || isExpensesFetching) {
-        return <div>Loading...</div>;
+        return (
+            <div className='card-container' style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <Loading />
+            </div>
+        )
     }
 
     if (isBudgetsError || isExpensesError) {
@@ -80,7 +85,7 @@ function CardContainer() {
         }
     }
     return (
-        <div className='card-container flip-in-diag-1-tr'>
+        <div className='card-container'>
             <Card number={todayObjects.length} title={"Expenses made today"} />
             <Card number={lastObject.amount ? `${lastObject.amount}Rs` : `${0}rs`} description={lastObject ? lastObject.description : ""} title={"Last Expense"} />
             <Card number={exceededBudgets} title={"Budgets are Full"} />

@@ -20,16 +20,28 @@ export const authApi = createApi({
                 validateStatus: (response, result) =>
                     response.status === 200 && !result.isError,
             }),
+            invalidatesTags: ['User'],
         }),
         logout: builder.mutation({
             query: () => ({
                 url: 'auth/logout',
                 method: 'GET',
             }),
+            invalidatesTags: ['User'],
         }),
         getUser: builder.query({
             query: () => "utils/getuser",
+            providesTags: ['User'],
         }),
+        isEmailAvailable: builder.mutation({
+            query: (email) => ({
+                url: `utils/isemailavail/${email}`,
+                method: 'GET',
+            }),
+        }),
+
+
+
 
 
 
@@ -120,6 +132,7 @@ export const {
     useLoginMutation,
     useLogoutMutation,
     useGetUserQuery,
+    useIsEmailAvailableMutation,
     useBudgetsQuery,
     useExpensesQuery,
     useAddBudgetMutation,

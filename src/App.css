@@ -111,6 +111,15 @@ select {
     background-repeat: no-repeat;
     background-position: calc(100% - 18px) center;
 }
+button:disabled,
+button[disabled]{
+  background-color: #cccccc;
+  color: #666666;
+}
+button:disabled,
+button[disabled]:hover{
+  cursor: not-allowed;
+}
 
 .auth-btn{
     width: 100%;

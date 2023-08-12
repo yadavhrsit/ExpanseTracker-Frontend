@@ -1,53 +1,67 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import { useRegisterMutation, useIsEmailAvailableMutation } from '../../apiSlice';
+import Loading from '../../components/Loading';
 import * as Yup from 'yup';
 
-const BASE_URL = 'http://localhost:8000';
-
-export const checkEmailAvailability = async (email) => {
-    try {
-        const response = await axios.get(`${BASE_URL}/utils/isemailavail/${email}`);
-        return response.data.available;
-    } catch (error) {
-        console.error('Error checking email availability:', error);
-        return false;
-    }
-}
-
-const SignupSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required').max(50, 'Name must be at most 50 characters'),
-    email: Yup.string().required('Email is required').email('Invalid email format').max(50, 'Email must be at most 50 characters')
-        .test('email-available', 'Email is already registered', async function (value) {
-            if (value) {
-                const isEmailAvailable = await checkEmailAvailability(value);
-                return isEmailAvailable;
-            }
-            return true;
-        }),
-    password: Yup.string().required('Password is required').max(20, 'Password must be at most 20 characters'),
-});
 
 const Signup = () => {
+    let navigate = useNavigate();
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [response, setResponse] = useState(null);
+
+    const [register] = useRegisterMutation();
+
+    const [isEmailAvailable] = useIsEmailAvailableMutation();
+
+    const SignupSchema = Yup.object().shape({
+        name: Yup.string().required('Name is required').max(50, 'Name must be at most 50 characters'),
+        email: Yup.string().required('Email is required').email('Invalid email format').max(50, 'Email must be at most 50 characters')
+            .test('email-available', 'Email is already registered', async function (value) {
+                if (value) {
+                    try {
+                        const payload = await isEmailAvailable(value).unwrap();
+                        return payload.available;
+                    } catch (error) {
+                        return false;
+                    }
+                }
+            }),
+        password: Yup.string().required('Password is required').max(20, 'Password must be at most 20 characters'),
+    });
 
     return (
         <div>
-
+            {
+                isLoggingIn ? <div className="modal"> <Loading /> </div> : null
+            }
             <Formik
                 initialValues={{ name: '', email: '', password: '' }}
                 validationSchema={SignupSchema}
                 onSubmit={async (values) => {
+                    setIsLoggingIn(true);
                     try {
-                        console.log(values)
-                        const response = await axios.post(`${BASE_URL}/auth/register`, {
-                            name: values.name,
-                            email: values.email,
-                            password: values.password,
-                        });
-                        setResponse(response.data);
+                        await register(values).unwrap()
+                            .then((payload) => {
+                                setIsLoggingIn(false);
+                                setResponse(payload);
+                                setTimeout(() => {
+                                    navigate('/');
+                                }, 500);
+                            })
+                            .catch((error) => {
+                                setTimeout(() => {
+                                    setIsLoggingIn(false);
+                                }, 600);
+                                setResponse(error);
+                            })
+
                     } catch (error) {
-                        setResponse(response.data);
+                        setTimeout(() => {
+                            setIsLoggingIn(false);
+                        }, 600);
+                        setResponse(error.error);
                     }
                 }}
             >

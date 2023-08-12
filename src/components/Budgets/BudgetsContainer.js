@@ -6,8 +6,8 @@ import AddBudget from '../Forms/AddBudget';
 import Loading from '../Loading';
 
 function BudgetsContainer() {
-    const { data: budgets, isSuccess: isBudgets, isError: isBudgetsError, isLoading } = useBudgetsQuery();
-    const { data: expenses, isSuccess: isExpenses, isError: isExpensesError, isFetching: isExpensesFetching } = useExpensesQuery();
+    const { data: budgets, isFetching: isBudgetsFetching } = useBudgetsQuery();
+    const { data: expenses, isFetching: isExpensesFetching } = useExpensesQuery();
 
     const [showAddBudget, setshowAddBudget] = useState(false);
 
@@ -15,7 +15,7 @@ function BudgetsContainer() {
         setshowAddBudget(expense);
     };
 
-    if (isLoading) {
+    if (isBudgetsFetching || isExpensesFetching) {
         return (
             <div className='budgets-container'>
                 <div className='section-header-container'>
@@ -99,24 +99,6 @@ function BudgetsContainer() {
         )
     }
 
-    if (isBudgetsError) {
-        return (
-            showAddBudget ?
-                <div className='modal'>
-                    <div className='form-wrapper'>
-                        <AddBudget handleAddBudget={handleAddBudget} /> <button className='close-btn' onClick={() => setshowAddBudget(false)}>x</button>
-                    </div>
-                </div>
-                :
-                <div className='budgets-container'>
-                    <div className='section-header-container'>
-                        <p className='section-heading'>Budgets</p>
-                        <button className='classic-btn' onClick={() => setshowAddBudget(true)}>+ Add Budget</button>
-                    </div>
-                    <p>Error Loading Budgets... Server Error!</p>
-                </div>
-        )
-    }
 }
 
 export default BudgetsContainer

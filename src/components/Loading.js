@@ -50,8 +50,10 @@ export default function Loading() {
     return (
         <div
             style={{
-                width: "300px",
-                height: '300px',
+                maxWidth: "300px",
+                maxHeight: '300px',
+                height: '100%',
+                width: '100%',
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center"
