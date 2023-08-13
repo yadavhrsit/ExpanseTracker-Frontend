@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const authApi = createApi({
     reducerPath: 'authApi',
-    baseQuery: fetchBaseQuery({ baseUrl: "https://us-central1-expensestracker-8d2a8.cloudfunctions.net/api/", credentials: "include" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "https://expenses-tracker-backend-yh53.onrender.com/", credentials: "include" }),
     tagTypes: ['Budgets', 'Expenses'],
     endpoints: (builder) => ({
         register: builder.mutation({
