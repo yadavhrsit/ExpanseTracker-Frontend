@@ -58,17 +58,29 @@ function ExpensesContainer() {
                         </div>
                     </div>
                     :
+
                     <div className='expenses-container'>
                         <div className='section-header-container' id='expenses-container-header'>
                             <p className="section-heading">Expenses</p>
                             <button className='classic-btn' onClick={() => setshowAddExpense(true)}>+ Add Expense</button>
                         </div>
+                        {/* <table className="expense-table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead> */}
                         {
                             Expenses.slice().reverse().map((expense, index) => (
+
                                 <ExpenseBar description={expense.description} expenseId={expense._id} date={expense.date} category={expense.category} amount={expense.amount} budgetId={expense.budgetId} key={index} />
                             ))
                         }
-                        <button className='classic-btn view-button'>View All</button>
+                        {/* </table> */}
                     </div>
             )
         }

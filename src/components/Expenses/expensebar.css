@@ -6,13 +6,8 @@
     padding: 10px 12px;
     border-radius: 10px;
     position: relative;
-    border: 2px solid white;
     order: 2;
-}
-.expense-img{
-    border-radius: 50%;
-    height: 25px;
-    width: 25px;
+    outline: 1px solid #ffff;
 }
 .expense-data-container-left{
     width:100%;
@@ -35,16 +30,76 @@
     font-weight: 400;
     font-style: italic;
     width: fit-content;
+    white-space: nowrap;
+    line-height: 1.5;
 }
 
 .expense-amount{
     font-weight: 700;
 }
 
-@media (min-width: 768px) {
-	.expense-img{
-        height: 56px;
-        width: 56px;
+
+
+
+/* Style for the entire table */
+.expense-table {
+    max-width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  /* Header row */
+  .expense-table th {
+    border-bottom: 2px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  /* Data rows */
+  .expense-row td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  
+  /* Alternating row background */
+  .expense-row:nth-child(even) {
+    background-color: #727272;
+  }
+  
+  .expense-row .classic-btn:nth-child(1){
+    background-color: rgb(63, 168, 142);;
+  }
+  .expense-row .classic-btn:nth-child(1):hover{
+    background-color: rgb(61, 202, 167);
+  }
+  .expense-row .classic-btn:nth-child(2){
+    margin-left: 6px;
+    background-color: rgb(245, 89, 89);
+  }
+  .expense-row .classic-btn:nth-child(2):hover{
+    background-color: rgb(245, 113, 113);
+  }
+
+
+  @media (max-width: 768px) {
+    
+    
+    .expense-table th {
+      font-size: 12px;
+      text-align: left;
+    }
+    
+    /* Data rows */
+    .expense-row td {
+      font-size: 10px;
+      text-align: left;
     }
     
   }
+  
+
+  

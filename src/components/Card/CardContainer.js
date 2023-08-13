@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './cardContainer.css';
 import Card from './Card';
 import Loading from '../Loading';
-import TodayExpenses from '../../icons/TodayExpenses.svg';
-import RecentExpense from '../../icons/RecentTransaction.svg';
-import ActiveBudget from '../../icons/ActiveBudgets.svg';
-import BudgetsFull from '../../icons/BudgetsFull.svg';
+import TodayExpenses from '../../icons/save-money.png';
+import RecentExpense from '../../icons/spending-money.png';
+import ActiveBudget from '../../icons/budgeting.png';
+import BudgetsFull from '../../icons/no-money.png';
 
 import { useExpensesQuery, useBudgetsQuery } from '../../apiSlice';
 

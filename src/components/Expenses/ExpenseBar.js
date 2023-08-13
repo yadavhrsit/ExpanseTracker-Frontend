@@ -26,8 +26,7 @@ function ExpenseBar({ description, date, category, amount, expenseId, budgetId }
 
     const formatDate = new Date(date);
     const options = {
-        year: 'numeric',
-        month: 'long',
+        month: 'short',
         day: 'numeric',
         hour: 'numeric',
         minute: 'numeric',
@@ -43,8 +42,24 @@ function ExpenseBar({ description, date, category, amount, expenseId, budgetId }
                     <button className='close-btn' onClick={() => setshowUpdateExpense(false)}>x</button>
                 </div>
             </div> :
+
+            // <tbody>
+            //     <tr className="expense-row">
+            //         <td>{description}</td>
+            //         <td>{category}</td>
+            //         <td>{formattedDate}</td>
+            //         <td>{amount} Rs</td>
+            //         <td>
+            //             <button className="classic-btn" onClick={handleUpdateExpense}>
+            //                 Edit
+            //             </button>
+            //             <button className="classic-btn" onClick={handleDeleteClick}>
+            //                 Delete
+            //             </button>
+            //         </td>
+            //     </tr>
+            // </tbody>
             <div className='expensebar-container'>
-                <img src="https://dummyimage.com/60.png" alt="expense" className='expense-img' />
                 <div className="expense-data-container-left">
                     <p className="expense-title">{description}</p>
                     <p className="expense-category">{category}</p>

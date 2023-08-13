@@ -6,10 +6,8 @@
   flex-direction: column;
   gap: 10px;
   padding: 40px 20px 80px;
-  background-color: #393E46;
-  border-radius: 25px;
-  
-  
+  background-color: #474d57;
+  border-radius: 10px;
 }
 @media (max-width: 768px) {
 	.budgets-container {

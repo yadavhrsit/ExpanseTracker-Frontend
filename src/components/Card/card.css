@@ -15,7 +15,7 @@
 .card img{
     height: 100px;
     width: 100px;
-    border-radius: 50%;
+    padding: 15px;
 }
 
 .card-number{
@@ -41,8 +41,8 @@
         border-radius: 6px;
     }
     .card img{
-        height: 40px;
-        width: 40px;
+        height: 70px;
+        width: 70px;
     }
 	.card-number{
         font-size:x-small;
