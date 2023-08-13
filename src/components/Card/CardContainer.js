@@ -36,6 +36,7 @@ function CardContainer() {
 
     useEffect(() => {
         if (isExpenses && expenses) {
+            console.log(expenses);
             if (expenses.length > 0) {
                 const filteredObjects = getObjectsWithTodayDate(expenses);
                 if (filteredObjects.length !== 0) {
@@ -47,11 +48,12 @@ function CardContainer() {
                 }
             }
             else {
+
                 setlastObject({});
                 setTodayObjects([]);
             }
         }
-    }, []);
+    }, [expenses]);
 
     if (isBudgetsFetching || isExpensesFetching) {
         return (
