@@ -15,7 +15,7 @@ const Login = () => {
     const { isLoading, isSuccess } = useGetUserQuery();
 
     if (isSuccess) {
-        navigate('/');
+        navigate('/dashboard');
     }
 
     const [response, setresponse] = useState("")
@@ -29,7 +29,7 @@ const Login = () => {
                 .then((payload) => {
                     setTimeout(() => {
                         setIsLoggingIn(false);
-                        navigate('/');
+                        navigate('/dashboard');
                     }, 500);
 
                 })

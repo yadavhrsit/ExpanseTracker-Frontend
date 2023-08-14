@@ -19,7 +19,7 @@ function Dashboard() {
 
     useEffect(() => {
         if (isProfileError) {
-            navigate("/login");
+            navigate("/");
         }
     }, [isProfileError, navigate])
 

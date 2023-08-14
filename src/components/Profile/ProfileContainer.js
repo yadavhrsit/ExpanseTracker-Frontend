@@ -17,7 +17,7 @@ function ProfileContainer(props) {
             await logout().unwrap();
             setTimeout(() => {
                 setIsLoggingOut(false);
-                navigate('/login');
+                navigate('/');
             }, 500);
         } catch (error) {
             setIsLoggingOut(false);
