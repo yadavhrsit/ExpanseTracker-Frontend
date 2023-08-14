@@ -93,7 +93,7 @@ const Signup = () => {
                             <ErrorMessage name="password" component="div" className="error" />
                         </div>
                         <button className='classic-btn auth-btn' type="submit">Submit</button>
-                        <a href="/login">Already a Registered user ? <strong>Login</strong></a>
+                        <a href="/">Already a Registered user ? <strong>Login</strong></a>
                         {response ? <div>{response.message}</div> : ""}
                     </Form>
                 )}
