@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# Expenses Tracker Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Expenses Tracker Frontend repository! This repository contains the frontend code for an Expenses Tracker application that helps you keep track of your expenses, manage your budget, and gain insights into your spending habits. Whether you're an individual looking to manage personal expenses or a small business owner keeping track of company finances, this application has you covered.
 
-## Available Scripts
+![Login]('screenshots/Login.png')
+![Signup]('screenshots/Signup.png')
+![Dashboard]('screenshots/Dashboard.png')
+![Budget]('screenshots/addBudget.png')
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **User Authentication:** Securely sign up and log in to your account to keep your financial data private. User authentication is implemented using Passport.js sessions for enhanced security.
+- **Expense Logging:** Easily add, edit, and delete expenses, with details such as amount, category, date, and description. RTK Query is utilized to cache data and minimize server requests when interacting with the expense data.
+- **Budget Management:** Set monthly budgets for different expense categories and receive notifications when you approach or exceed your limits.
+- **Data Visualization:** Visualize your spending patterns with Cards. This helps you identify trends and make informed financial decisions.
+- **Expense Categories:** Categorize your expenses into custom categories for better organization and analysis.
+- **Form Handling:** Formik is used for handling forms throughout the application, providing a seamless and user-friendly experience.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies Used
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **React:** The frontend is built using React, a popular JavaScript library for building user interfaces.
+- **Redux and RTK Query:** Redux is used for state management, and RTK Query extends it to efficiently handle data fetching, caching, and updates.
+- **Authentication:** User authentication is implemented using Passport.js sessions to secure user data and access.
+- **Form Handling:** Formik is used for handling forms, simplifying form validation and submission.
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Follow these steps to set up the Expenses Tracker Frontend locally:
 
-### `npm run build`
+1. **Clone the repository:**
+   ```
+   git clone https://github.com/yadavhrsit/ExpanseTracker-Frontend.git
+   cd expenses-tracker-frontend
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Install dependencies:**
+   ```
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **Configure API endpoint:**
+   In the `src/apiSlice.js` file, update the `BASE_URL` with the URL of your Expenses Tracker Backend API.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. **Run the application:**
+   ```
+   npm start
+   ```
 
-### `npm run eject`
+5. **Access the application:**
+   Open your web browser and go to `http://localhost:3000` to use the Expenses Tracker application.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+We hope you find the Expenses Tracker application helpful in managing your finances effectively. If you have any questions, issues, or suggestions, please don't hesitate to open an issue or contact us.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Happy budgeting!
