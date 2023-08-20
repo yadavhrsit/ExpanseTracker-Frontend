@@ -2,11 +2,6 @@
 
 Welcome to the Expenses Tracker Frontend repository! This repository contains the frontend code for an Expenses Tracker application that helps you keep track of your expenses, manage your budget, and gain insights into your spending habits. Whether you're an individual looking to manage personal expenses or a small business owner keeping track of company finances, this application has you covered.
 
-![Login](screenshots/Login.png)
-![Signup](screenshots/Signup.png)
-![Dashboard](screenshots/Dashboard.png)
-![Budget](screenshots/addBudget.png)
-
 ## Features
 
 - **User Authentication:** Securely sign up and log in to your account to keep your financial data private. User authentication is implemented using Passport.js sessions for enhanced security.
@@ -54,3 +49,11 @@ Follow these steps to set up the Expenses Tracker Frontend locally:
 We hope you find the Expenses Tracker application helpful in managing your finances effectively. If you have any questions, issues, or suggestions, please don't hesitate to open an issue or contact us.
 
 Happy budgeting!
+
+
+
+![Login](screenshots/Login.png)
+![Signup](screenshots/Signup.png)
+![Dashboard](screenshots/Dashboard.png)
+![Budget](screenshots/addBudget.png)
+
