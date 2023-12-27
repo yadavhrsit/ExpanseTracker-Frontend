@@ -44,7 +44,14 @@ Follow these steps to set up the Expenses Tracker Frontend locally:
 5. **Access the application:**
    Open your web browser and go to `http://localhost:3000` to use the Expenses Tracker application.
 
+## Test Credentials
 
+To explore you can use the following test credentials:
+
+- **Email:** testuser@test.com
+- **Password:** Pass@123
+
+Feel free to sign in using these credentials to experience the platform's functionalities without creating a new account.
 
 We hope you find the Expenses Tracker application helpful in managing your finances effectively. If you have any questions, issues, or suggestions, please don't hesitate to open an issue or contact us.
 
